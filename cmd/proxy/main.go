@@ -9,6 +9,8 @@ import (
 	"syscall"
 	"time"
 
+	"log/slog"
+
 	"github.com/ntquang98/go-proxy/internal/config"
 	"github.com/ntquang98/go-proxy/internal/proxy"
 	"github.com/ntquang98/go-proxy/internal/rules"
@@ -24,6 +26,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	slog.SetDefault(logger)
 
 	engine := rules.NewEngine(rulesList)
 	server := proxy.NewServer(cfg, engine)
