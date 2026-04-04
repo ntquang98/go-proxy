@@ -87,3 +87,5 @@ bin/
 coverage.*
 
 uploads/
+
+.env

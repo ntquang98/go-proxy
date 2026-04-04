@@ -8,18 +8,19 @@ import (
 	"os"
 
 	"github.com/elazarl/goproxy"
+	"github.com/ntquang98/go-proxy/internal/config"
 	"github.com/ntquang98/go-proxy/internal/rules"
 )
 
-func NewServer(engine *rules.Engine) *http.Server {
+func NewServer(cfg *config.Config, engine *rules.Engine) *http.Server {
 	proxy := goproxy.NewProxyHttpServer()
 
-	caCert, err := os.ReadFile("C:/Users/ADMIN/AppData/Local/mkcert/rootCA.pem")
+	caCert, err := os.ReadFile(cfg.Cert.CertPath)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	caKey, err := os.ReadFile("C:/Users/ADMIN/AppData/Local/mkcert/rootCA-key.pem")
+	caKey, err := os.ReadFile(cfg.Cert.CertKeyPath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -39,7 +40,7 @@ func NewServer(engine *rules.Engine) *http.Server {
 	// proxy.Verbose = true
 
 	return &http.Server{
-		Addr:    ":3333",
+		Addr:    cfg.Proxy.Addr,
 		Handler: proxy,
 	}
 }
