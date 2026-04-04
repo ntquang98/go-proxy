@@ -1,0 +1,5 @@
+[tools]
+go = "1.26"
+
+[tasks]
+dev = "go run cmd/proxy/main.go"

@@ -1,0 +1,89 @@
+# -----------------------
+# Go language
+# -----------------------
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Go workspace file
+go.work
+go.work.sum
+
+# -----------------------
+# Nix + Flakes
+# -----------------------
+# Nix evaluation cache
+.result
+result
+result-*
+
+# Common development outputs
+.direnv/
+.envrc.local
+.devenv/
+devenv-*
+
+# Nix store symlinks created by nix develop / direnv
+.nix-develop*
+.flake*
+.envrc
+
+# -----------------------
+# Editor & IDE files
+# -----------------------
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# JetBrains
+.idea/
+*.iml
+
+# Neovim / Vim
+*.swp
+*.swo
+*.swn
+Session.vim
+.netrwhist
+
+# Emacs
+.dir-locals.el
+*~
+\#*\#
+.emacs.desktop
+.emacs.desktop.lock
+
+# -----------------------
+# Logs & temporary files
+# -----------------------
+*.log
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# -----------------------
+# Build artifacts (if you use goreleaser, etc.)
+# -----------------------
+dist/
+build/
+out/
+bin/
+coverage.*
+
+uploads/

@@ -1,0 +1,65 @@
+[
+  {
+    "id": "redirect-cart",
+    "enabled": false,
+    "type": "mock",
+    "url_contains": "customily.shopify.script.cart",
+    "file_path": "D:/works/Customily/ShopifyApp/server/public/static/customily.shopify.script.cart.45b1e1835a125ce6c3d7.js"
+  },
+  {
+    "id": "redirect-cart-map",
+    "enabled": false,
+    "type": "mock",
+    "url_contains": "https://cdn.customily.com/shopify/static/customily.shopify.script.cart.45b1e1835a125ce6c3d7.js.map",
+    "file_path": "D:/works/Customily/ShopifyApp/server/public/static/customily.shopify.script.cart.45b1e1835a125ce6c3d7.js.map"
+  },
+  {
+    "id": "redirect-script",
+    "enabled": true,
+    "type": "mock",
+    "url_contains": "customily.shopify.script.js",
+    "file_path": "D:/works/Customily/ShopifyApp/server/public/static/customily.shopify.script.js"
+  },
+  {
+    "id": "redirect-script-map",
+    "enabled": false,
+    "type": "mock",
+    "url_contains": "https://cdn.customily.com/shopify/static/customily.shopify.script.js.map",
+    "file_path": "D:/works/Customily/ShopifyApp/server/public/static/customily.shopify.script.js.map"
+  },
+  {
+    "id": "redirect-script-main",
+    "enabled": true,
+    "type": "mock",
+    "url_contains": "customily.shopify.script.main.122b64168f34ee0bc388.js",
+    "file_path": "D:/works/Customily/ShopifyApp/server/public/static/customily.shopify.script.main.122b64168f34ee0bc388.js"
+  },
+  {
+    "id": "redirect-customily-js",
+    "enabled": false,
+    "type": "mock",
+    "url_contains": "customily.js",
+    "file_path": "D:/works/Customily/Customily/TurcosJSLib/build/customily.js"
+  },
+  {
+    "id": "redirect-customily-js-map",
+    "enabled": false,
+    "type": "mock",
+    "url_contains": "customily.js.map",
+    "file_path": "D:/works/Customily/Customily/TurcosJSLib/build/customily.js.map"
+  },
+  {
+    "id": "redirect-woo-script",
+    "enabled": false,
+    "type": "redirect",
+    "url_contains": "https://cdn.customily.com/wordpress/static/scripts/customily.wordpress.script.unified.js",
+    "redirect": "D:/works/Customily/WooCommerce/app/script/dist/dev/customily.wordpress.script.js"
+  },
+  {
+    "id": "redirect-woo-main",
+    "enabled": false,
+    "type": "redirect",
+    "url_contains": "https://cdn.customily.com/wordpress/static/scripts/customily.wordpress.script.main.js",
+    "redirect": "D:/works/Customily/WooCommerce/app/script/dist/dev/customily.wordpress.script.main.js"
+  }
+]
