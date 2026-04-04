@@ -36,6 +36,16 @@ func (h *Handler) enrichContext(req *http.Request) *http.Request {
 	return req.WithContext(ctx)
 }
 
+func (h *Handler) attachRule(req *http.Request) (*http.Request, *rules.Rule) {
+	rule := h.engine.Match(req)
+	if rule == nil {
+		return req, nil
+	}
+
+	ctx := reqctx.WithRule(req.Context(), rule)
+	return req.WithContext(ctx), rule
+}
+
 // handle redirect and mock
 func (h *Handler) HandleRequest(req *http.Request, ctx *goproxy.ProxyCtx) (*http.Request, *http.Response) {
 	req = h.enrichContext(req)
@@ -51,7 +61,7 @@ func (h *Handler) HandleRequest(req *http.Request, ctx *goproxy.ProxyCtx) (*http
 
 	logger.Info("incoming request")
 
-	rule := h.engine.Match(req)
+	req, rule := h.attachRule(req)
 	if rule == nil {
 		return req, nil
 	}
@@ -104,8 +114,7 @@ func (h *Handler) HandleResponse(resp *http.Response, ctx *goproxy.ProxyCtx) *ht
 
 	ctxReq := resp.Request.Context()
 	logger := reqctx.GetLogger(ctxReq)
-
-	rule := h.engine.Match(resp.Request)
+	rule := reqctx.GetRule(ctxReq)
 	if rule == nil {
 		return resp
 	}
