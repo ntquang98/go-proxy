@@ -14,7 +14,8 @@ func NewEngine(rules []Rule) *Engine {
 }
 
 func (e *Engine) Match(req *http.Request) *Rule {
-	for _, r := range e.Rules {
+	for i := range e.Rules {
+		r := &e.Rules[i]
 		if !r.Enabled {
 			continue
 		}
@@ -28,7 +29,7 @@ func (e *Engine) Match(req *http.Request) *Rule {
 			continue
 		}
 
-		return &r
+		return r
 	}
 
 	return nil
