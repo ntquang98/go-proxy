@@ -53,13 +53,7 @@ func (h *Handler) HandleRequest(req *http.Request, ctx *goproxy.ProxyCtx) (*http
 	logger := reqctx.GetLogger(req.Context())
 	start := time.Now()
 
-	defer func() {
-		logger.Info("request done",
-			"duration_ms", time.Since(start).Milliseconds(),
-		)
-	}()
-
-	logger.Info("incoming request")
+	logger.Debug("incoming request")
 
 	req, rule := h.attachRule(req)
 	if rule == nil {
@@ -70,6 +64,12 @@ func (h *Handler) HandleRequest(req *http.Request, ctx *goproxy.ProxyCtx) (*http
 		"rule_id", rule.ID,
 		"type", rule.Type,
 	)
+
+	defer func() {
+		logger.Info("request done",
+			"duration_ms", time.Since(start).Milliseconds(),
+		)
+	}()
 
 	switch rule.Type {
 	case rules.RudeRedirect:
