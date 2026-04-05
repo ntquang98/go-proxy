@@ -3,6 +3,7 @@
     "id": "redirect-cart",
     "enabled": false,
     "type": "mock",
+    "priority": 1,
     "url_regex": "customily.shopify.script.cart.[a-f0-9]+.js$",
     "file_path": "D:/works/Customily/ShopifyApp/server/public/static/customily.shopify.script.cart.45b1e1835a125ce6c3d7.js"
   },
