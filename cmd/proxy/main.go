@@ -14,6 +14,7 @@ import (
 	"github.com/ntquang98/go-proxy/internal/config"
 	"github.com/ntquang98/go-proxy/internal/proxy"
 	"github.com/ntquang98/go-proxy/internal/rules"
+	"github.com/ntquang98/go-proxy/internal/sysproxy"
 )
 
 func main() {
@@ -34,6 +35,25 @@ func main() {
 
 	engine := rules.NewEngine(rulesList)
 	server := proxy.NewServer(cfg, engine)
+	pm := sysproxy.New(cfg.Proxy.Host, cfg.Proxy.Port)
+
+	if err := pm.Backup(); err != nil {
+		logger.Warn("[SYS_PROXY]backup proxy failed", "error", err)
+	}
+
+	if err := pm.Enable(); err != nil {
+		logger.Warn("[SYS_PROXY] enable proxy failed", "error", err)
+	} else {
+		logger.Info("[SYS_PROXY] system proxy enabled")
+	}
+
+	defer func() {
+		if err := pm.Restore(); err != nil {
+			logger.Warn("[SYS_PROXY] restore proxy failed", "error", err)
+		} else {
+			logger.Info("[SYS_PROXY] system proxy restored")
+		}
+	}()
 
 	go func() {
 		log.Println("[START] proxy running on", cfg.Proxy.Addr)
