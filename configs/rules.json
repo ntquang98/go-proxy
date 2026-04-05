@@ -3,14 +3,14 @@
     "id": "redirect-cart",
     "enabled": false,
     "type": "mock",
-    "url_contains": "customily.shopify.script.cart",
+    "url_regex": "customily.shopify.script.cart.[a-f0-9]+.js$",
     "file_path": "D:/works/Customily/ShopifyApp/server/public/static/customily.shopify.script.cart.45b1e1835a125ce6c3d7.js"
   },
   {
     "id": "redirect-cart-map",
     "enabled": false,
     "type": "mock",
-    "url_contains": "https://cdn.customily.com/shopify/static/customily.shopify.script.cart.45b1e1835a125ce6c3d7.js.map",
+    "url_regex": "customily.shopify.script.cart.[a-f0-9]+.js.map$",
     "file_path": "D:/works/Customily/ShopifyApp/server/public/static/customily.shopify.script.cart.45b1e1835a125ce6c3d7.js.map"
   },
   {
@@ -24,14 +24,15 @@
     "id": "redirect-script-map",
     "enabled": false,
     "type": "mock",
-    "url_contains": "https://cdn.customily.com/shopify/static/customily.shopify.script.js.map",
+    "priority": 100,
+    "url_regex": "customily.shopify.script.js.map$",
     "file_path": "D:/works/Customily/ShopifyApp/server/public/static/customily.shopify.script.js.map"
   },
   {
     "id": "redirect-script-main",
     "enabled": true,
     "type": "mock",
-    "url_contains": "customily.shopify.script.main.122b64168f34ee0bc388.js",
+    "url_regex": "customily.shopify.script.main.[a-f0-9]+.js$",
     "file_path": "D:/works/Customily/ShopifyApp/server/public/static/customily.shopify.script.main.122b64168f34ee0bc388.js"
   },
   {

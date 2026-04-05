@@ -33,7 +33,10 @@ func main() {
 	}))
 	slog.SetDefault(logger)
 
-	engine := rules.NewEngine(rulesList)
+	engine, err := rules.BuildEngine(rulesList)
+	if err != nil {
+		log.Fatalf("cannot build engine: %v", err)
+	}
 	server := proxy.NewServer(cfg, engine)
 	pm := sysproxy.New(cfg.Proxy.Host, cfg.Proxy.Port)
 
