@@ -34,6 +34,10 @@ func NewServer(cfg *config.Config, engine *rules.Engine) *http.Server {
 
 	handler := NewHandler(engine)
 
+	go WatchRules("configs/rules.json", func() error {
+		return handler.Reload("configs/rules.json")
+	})
+
 	proxy.OnRequest().HandleConnect(goproxy.AlwaysMitm)
 	proxy.OnRequest().DoFunc(handler.HandleRequest)
 	proxy.OnResponse().DoFunc(handler.HandleResponse)

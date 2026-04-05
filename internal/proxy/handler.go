@@ -7,6 +7,7 @@ import (
 	"log/slog"
 	"net/http"
 	"strconv"
+	"sync/atomic"
 	"time"
 
 	"github.com/elazarl/goproxy"
@@ -15,11 +16,17 @@ import (
 )
 
 type Handler struct {
-	engine *rules.Engine
+	engine atomic.Value
 }
 
 func NewHandler(engine *rules.Engine) *Handler {
-	return &Handler{engine: engine}
+	h := &Handler{}
+	h.engine.Store(engine)
+	return h
+}
+
+func (h *Handler) getEngine() *rules.Engine {
+	return h.engine.Load().(*rules.Engine)
 }
 
 func (h *Handler) enrichContext(req *http.Request) *http.Request {
@@ -35,13 +42,31 @@ func (h *Handler) enrichContext(req *http.Request) *http.Request {
 }
 
 func (h *Handler) attachRule(req *http.Request) (*http.Request, *rules.Rule) {
-	rule := h.engine.Match(req)
+	rule := h.getEngine().Match(req)
 	if rule == nil {
 		return req, nil
 	}
 
 	ctx := reqctx.WithRule(req.Context(), rule)
 	return req.WithContext(ctx), rule
+}
+
+func (h *Handler) Reload(path string) error {
+	rulesList, err := rules.LoadRules(path)
+	if err != nil {
+		return err
+	}
+
+	engine, err := rules.BuildEngine(rulesList)
+	if err != nil {
+		return err
+	}
+
+	h.engine.Store(engine)
+
+	slog.Info("rules reloaded", "rules_count", len(engine.Rules))
+
+	return nil
 }
 
 // handle redirect and mock
